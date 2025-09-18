@@ -1,24 +1,20 @@
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+import requests
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Get API key from environment variables
-api_key = os.getenv("DEEPSEEK_API_KEY")
+api_key = os.getenv("HUGGINGFACE_API_KEY")
 if not api_key:
-    raise ValueError("DEEPSEEK_API_KEY not found in environment variables")
+    raise ValueError("HUGGINGFACE_API_KEY not found in environment variables")
 
-client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+headers = {"Authorization": f"Bearer {api_key}"}
+response = requests.get("https://huggingface.co/api/whoami-v2", headers=headers)
 
-response = client.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant"},
-        {"role": "user", "content": "Hello"},
-    ],
-    stream=False
-)
-
-print(response.choices[0].message.content)
+if response.status_code == 200:
+    print("✅ HuggingFace API key is valid!")
+    print("User info:", response.json())
+else:
+    print("❌ Invalid HuggingFace API key or network error.")
+    print("Status code:", response.status_code)
+    print("Response:", response.text)
