@@ -1,0 +1,23 @@
+# Core framework
+llama-index==0.10.28
+llama-index-core==0.10.28
+llama-index-embeddings-huggingface==0.1.4
+llama-index-vector-stores-chroma==0.1.6
+
+# Vector DB
+chromadb==0.4.22
+
+# Embeddings
+sentence-transformers==2.2.2
+
+# Web framework
+flask==3.0.3
+
+# Utilities
+requests==2.32.3
+numpy==1.26.4
+pandas==2.2.2
+
+# Optional (useful for scraping if you plan to replace mock data)
+beautifulsoup4==4.12.3
+tqdm==4.66.5
